@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: my-express-app
+    env: node
+    plan: starter
+    buildCommand: "npm install"
+    startCommand: "node app.js"
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
+    branch: main
