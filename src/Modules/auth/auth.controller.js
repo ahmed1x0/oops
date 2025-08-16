@@ -19,12 +19,6 @@ export const register = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await UserModel.create({ firstName, lastName, email, password: hashedPassword });
 
-    const token = generateToken({ id: user._id }, "15m");
-    const verificationLink = `${process.env.LOCAL_HOST}auth/verify/${token}`;
-
-    const html = `<p>Hello ${firstName}, please verify your email:</p><a href="${verificationLink}">Verify</a>`;
-    await sendEmail(user.email, "Verify Email", html);
-
     return res.status(201).json({
       message: "User registered successfully. Please verify your email.",
       user: {
