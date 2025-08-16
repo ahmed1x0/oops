@@ -48,16 +48,6 @@ export const login = async (req, res, next) => {
     if (!match)
       return res.status(401).json({ message: "Email or password is incorrect" });
 
-    if (!user.confirmEmail) {
-      const token = generateToken({ id: user._id }, "15m");
-      const verificationLink = `${process.env.REAL_HOST}auth/verify/${token}`;
-      const html = `<p>Hello ${user.firstName}, verify your email:</p><a href="${verificationLink}">Verify</a>`;
-      await sendEmail(user.email, "Verify Email to Login", html);
-      return res.status(401).json({
-        message: "Please verify your email. A new link has been sent.",
-      });
-    }
-
     const Role = user.role;
     
     const now = new Date();
