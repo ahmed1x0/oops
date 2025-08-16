@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, trim: true, lowercase: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, enum: Object.values(roles), default: roles.user },
-    confirmEmail: { type: Boolean, default: false },
+    confirmEmail: { type: Boolean, default: true },
     accessToken: { type: String },
     accessTokenExpiresAt: { type: Date },
     lastLogin: { type: Date },
